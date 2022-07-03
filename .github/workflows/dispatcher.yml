@@ -11,11 +11,11 @@ jobs:
   build:
     strategy:
       matrix:
-        repo: ['wlaunchELF', 'Open-PS2-Loader', 'isjpcm', 'Fceumm-PS2']
+        repo: ['wlaunchELF', 'Open-PS2-Loader', 'isjpcm', 'Fceumm-PS2', 'ps2homebrew']
     runs-on: ubuntu-latest
   
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
   
     - name: Send Compile action
       run: |
@@ -23,7 +23,7 @@ jobs:
         echo "NEW_DISPATCH_ACTION=$DISPATCH_ACTION" >> $GITHUB_ENV
         
     - name: Dispatch to organization repositories
-      uses: peter-evans/repository-dispatch@v1
+      uses: peter-evans/repository-dispatch@v2
       with:
         repository: ${{ github.repository_owner }}/${{ matrix.repo }}
         token: ${{ secrets.DISPATCH_TOKEN }}
